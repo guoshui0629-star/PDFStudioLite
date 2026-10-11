@@ -1,0 +1,47 @@
+# Python environments and caches
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Build outputs
+build/
+dist/
+*.spec
+output/
+tmp/
+
+# Editors and operating system
+.idea/
+.vscode/
+Thumbs.db
+Desktop.ini
+
+# User documents and local settings
+*.pdf
+*.jpg
+*.jpeg
+*.png
+*.webp
+*.bmp
+*.tif
+*.tiff
+user_settings.json
+*.log
+版本迭代/
+
+# Keep deliberate test fixtures under version control
+!tests/fixtures/**/*.pdf
+!tests/fixtures/**/*.jpg
+!tests/fixtures/**/*.jpeg
+!tests/fixtures/**/*.png
+!app/resources/**/*.png
+!ui/assets/**/*.png
+!ui/previews/**/*.png
+# Local UI reference media supplied for design analysis
+ui/references/*.mp4
+ui/references/switch-frames/

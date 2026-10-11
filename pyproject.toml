@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-studio-lite"
+version = "3.2.0"
+description = "完全离线的 Windows PDF 页面编辑与压缩工具"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+  "PySide6==6.12.0",
+  "PyMuPDF==1.28.2",
+  "Pillow==12.3.0",
+  "pikepdf==10.16.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9.1", "PyInstaller>=6.22"]
+
+[project.scripts]
+pdf-studio-lite = "app.main:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
