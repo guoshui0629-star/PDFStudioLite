@@ -1,6 +1,8 @@
 # PDF Studio Lite
 
-PDF Studio Lite 是一款面向 Windows 11 的轻量级、完全离线 PDF 工具。它使用 PySide6 构建桌面界面，使用 PyMuPDF 进行页面级编辑，目标是尽可能保留文字、矢量内容、页面尺寸和原始图片质量。
+PDF Studio Lite 是一款面向 Windows 11 的完全离线 PDF 工具。轻量、高保真、低损耗、傻瓜式自由编辑拆分重组、去水印，牛逼。
+
+采用拟物风UI设计，致敬老罗，致敬锤子科技。
 
 ## 一键下载 Windows 免安装版
 
