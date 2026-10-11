@@ -1,8 +1,14 @@
 # PDF Studio Lite
 
+<p align="center">
+  <img src="docs/images/pdf-studio-lite-logo.png" alt="PDF Studio Lite Logo" width="160">
+</p>
+
 PDF Studio Lite 是一款面向 Windows 11 的完全离线 PDF 工具。轻量、高保真、低损耗、傻瓜式自由编辑拆分重组、去水印，牛逼。
 
 采用拟物风UI设计，致敬老罗，致敬锤子科技。
+
+![PDF Studio Lite V3.2 主界面](docs/images/pdf-studio-lite-v3.2-main-window.png)
 
 ## 一键下载 Windows 免安装版
 
