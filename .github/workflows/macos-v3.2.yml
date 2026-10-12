@@ -1,0 +1,85 @@
+name: Build and test macOS V3.2
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_release:
+        description: Upload packages to the existing v3.2.0 release
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  compatibility-test:
+    name: Test on ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-14, macos-15, macos-26]
+    runs-on: ${{ matrix.os }}
+    env:
+      QT_QPA_PLATFORM: offscreen
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+      - name: Run complete test suite
+        run: python -m pytest -q
+
+  build:
+    name: Build ${{ matrix.label }} package
+    needs: compatibility-test
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-14
+            arch: arm64
+            label: Apple-Silicon
+          - os: macos-15-intel
+            arch: x86_64
+            label: Intel
+    runs-on: ${{ matrix.os }}
+    env:
+      QT_QPA_PLATFORM: offscreen
+      PDFSTUDIO_ARCH: ${{ matrix.arch }}
+      MACOSX_DEPLOYMENT_TARGET: "14.0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+          cache: pip
+      - name: Install dependencies
+        run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+      - name: Build and verify application
+        run: bash scripts/build_macos.sh
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDF-Studio-Lite-V3.2-macOS-${{ matrix.label }}
+          path: release-macos/*
+          if-no-files-found: error
+
+  release:
+    name: Publish macOS packages
+    if: ${{ inputs.publish_release }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: PDF-Studio-Lite-V3.2-macOS-*
+          path: release-assets
+          merge-multiple: true
+      - name: Upload to V3.2 release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload v3.2.0 release-assets/* --repo "${{ github.repository }}" --clobber

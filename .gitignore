@@ -11,9 +11,11 @@ htmlcov/
 # Build outputs
 build/
 dist/
+release-macos/
 *.spec
 output/
 tmp/
+tools/gh/
 
 # Editors and operating system
 .idea/

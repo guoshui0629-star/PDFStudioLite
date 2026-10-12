@@ -21,10 +21,15 @@ def create_application(argv: list[str] | None = None) -> QApplication:
     QApplication.setHighDpiScaleFactorRoundingPolicy(Qt.HighDpiScaleFactorRoundingPolicy.PassThrough)
     app = QApplication(argv if argv is not None else sys.argv)
     families = set(QFontDatabase.families())
-    family = next((name for name in ("Microsoft YaHei UI", "Segoe UI Variable", "Segoe UI") if name in families), "Segoe UI")
+    preferred_families = (
+        ("PingFang SC", ".AppleSystemUIFont", "Helvetica Neue", "Arial")
+        if sys.platform == "darwin"
+        else ("Microsoft YaHei UI", "Segoe UI Variable", "Segoe UI", "Arial")
+    )
+    family = next((name for name in preferred_families if name in families), QApplication.font().family())
     font = QFont(family, 10)
     app.setFont(font)
-    app.setWindowIcon(QIcon(str(ui_resource_path("assets/branding/pdf-toaster-app.ico"))))
+    app.setWindowIcon(QIcon(str(ui_resource_path("assets/branding/pdf-toaster-app-512.png"))))
     app.setProperty("darkTheme", False)
     app.setStyleSheet(application_stylesheet())
     app.option_wheel_guard = OptionWheelGuard(app)  # type: ignore[attr-defined]

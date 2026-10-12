@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "pdf-studio-lite"
 version = "3.2.0"
-description = "完全离线的 Windows PDF 页面编辑与压缩工具"
+description = "完全离线的 Windows 与 macOS PDF 页面编辑和压缩工具"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [

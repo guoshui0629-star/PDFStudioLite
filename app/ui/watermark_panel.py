@@ -101,7 +101,7 @@ class WatermarkPanel(QWidget):
         self.font.addItems(families or ("Microsoft YaHei UI", "Segoe UI"))
         preferred = next((name for name in ("Microsoft YaHei UI", "微软雅黑", "Segoe UI") if name in families), self.font.itemText(0))
         self.font.setCurrentText(preferred)
-        self.font.setToolTip("输入字体名称可搜索当前 Windows 已安装字体")
+        self.font.setToolTip("输入字体名称可搜索当前系统已安装字体")
         layout.addWidget(self.font)
 
         self.image_path = QLineEdit()

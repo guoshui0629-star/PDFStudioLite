@@ -4,6 +4,13 @@
 
 ## [未发布]
 
+### V3.2 macOS 适配
+
+- 保持应用版本 `3.2.0 / V3.2` 不变，新增 macOS 14 及更高版本的原生 `.app`、DMG 与 ZIP 构建流程。
+- 增加 Apple Silicon 与 Intel 两种安装包，并在 GitHub Actions 的 macOS 14、15、26 环境运行完整测试。
+- macOS 使用系统苹方字体回退与 PNG/ICNS 品牌图标；Windows 字体、界面和既有打包流程保持不变。
+- 无 Apple Developer 证书时执行 ad-hoc 签名并验证包结构；正式公证签名可在后续配置证书后启用。
+
 ### V2 开发中
 
 - 建立“导出为 PDF / 导出为图片 / 批量压缩 PDF”三模式切换框架。
