@@ -10,6 +10,7 @@
 - 增加 Apple Silicon 与 Intel 两种安装包，并在 GitHub Actions 的 macOS 14、15、26 环境运行完整测试。
 - macOS 使用系统苹方字体回退与 PNG/ICNS 品牌图标；Windows 字体、界面和既有打包流程保持不变。
 - 无 Apple Developer 证书时执行 ad-hoc 签名并验证包结构；正式公证签名可在后续配置证书后启用。
+- macOS 固定使用仍提供 macOS 14 ARM64 官方二进制包的 pikepdf 10.10.0；Windows 继续使用 10.16.0，避免在旧版 macOS 上回退到不完整的源码编译环境。
 
 ### V2 开发中
 
