@@ -598,11 +598,14 @@ class MainWindow(QMainWindow):
         self.image_quality.setRange(1, 100)
         self.image_quality.setValue(90)
         form.addRow("质量", self.image_quality)
+        self.image_merge_long = LabeledSwitch("合并为长图输出")
+        self.image_merge_long.setToolTip("按当前页面顺序纵向拼接，只输出一张图片；默认关闭。")
+        form.addRow("输出方式", self.image_merge_long)
         self.image_format.currentTextChanged.connect(self._update_image_quality_control)
         self.image_dpi.currentTextChanged.connect(self._update_image_quality_control)
         layout.addLayout(form)
         self.image_original_hint = QLabel(
-            "原图：图片保持原始像素；PDF 页面以 600 DPI 最高质量渲染。",
+            "原图：图片保持上传时的原始像素尺寸，不放大；使用无损压缩避免文件异常膨胀。PDF 页面以 600 DPI 渲染。",
             objectName="Secondary",
         )
         self.image_original_hint.setWordWrap(True)
@@ -769,6 +772,7 @@ class MainWindow(QMainWindow):
                 self.image_format.currentText(),
                 dpi,
                 self.image_quality.value(),
+                self.image_merge_long.isChecked(),
                 progress,
                 cancelled,
             )
@@ -790,7 +794,9 @@ class MainWindow(QMainWindow):
         QMessageBox.information(
             self,
             "图片导出完成",
-            f"成功：{len(outputs)} 页\n失败：{len(failures)} 页\n输出目录：{data['output_dir']}",
+            f"成功：{data.get('exported_pages', len(outputs))} 页\n"
+            f"输出文件：{len(outputs)} 个{'（长图）' if data.get('merged') else ''}\n"
+            f"失败：{len(failures)} 页\n输出目录：{data['output_dir']}",
         )
 
     def _selection_changed(self) -> None:

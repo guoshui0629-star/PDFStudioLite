@@ -24,10 +24,10 @@ def test_main_window_starts_and_has_three_panes(tmp_path, monkeypatch) -> None:
     window = MainWindow()
     window.show()
     app.processEvents()
-    assert window.windowTitle() == "PDF Studio Lite V3.2"
+    assert window.windowTitle() == "PDF Studio Lite V3.3"
     assert window.windowTitle() == __product_title__
-    assert __display_version__ == "V3.2"
-    assert __version__ == "3.2.0"
+    assert __display_version__ == "V3.3"
+    assert __version__ == "3.3.0"
     assert not window.windowIcon().isNull()
     assert ui_resource_path("assets/branding/pdf-toaster-app.ico").is_file()
     assert ui_resource_path("assets/branding/pdf-toaster-app-512.png").is_file()
@@ -65,6 +65,7 @@ def test_main_window_starts_and_has_three_panes(tmp_path, monkeypatch) -> None:
     assert window.image_format.count() == 4
     assert window.image_dpi.currentText() == "200 DPI"
     assert window.image_dpi.itemText(0) == "原图"
+    assert not window.image_merge_long.isChecked()
     window.mode_selector.setCurrentIndex(2)
     app.processEvents()
     assert window.workspace_mode == WorkspaceMode.BATCH
